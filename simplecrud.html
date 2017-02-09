@@ -1,0 +1,76 @@
+<html>
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>  
+</head>
+<body>
+<div ng-app="app" ng-controller="mycontrol">
+<label>name:</label>
+<input type = "text" ng-model="EmpModel.Name"/ >
+<input type = "button" ng-model="add" value="add" ng-click="add()"/>
+<input type="button" value="Update Data" data-ng-click="UpdateData()" />
+<br><br>
+<table border="1px solidblack">
+
+<td>name</td>
+<td>option</td>
+ <tr data-ng-repeat="Emp in EmpList">  
+                
+                <td>{{ Emp.Name }}</td>  
+                  
+                <td>  
+                    <input type="button" value="Delete" data-ng-click="delete(Emp)" />
+                    <input type="button" value="Edit" data-ng-click="edit(Emp)" /></td>  
+            </tr> 
+</table>
+</div>
+<script type="text/javascript">  
+        var app = angular.module("app", []);  
+        app.controller('mycontrol', function ($scope) {  
+  
+            $scope.EmpModel = {   
+                Name: '', 
+                
+            };  
+  
+            $scope.EmpList = [];  
+            $scope.add = function () {  
+                var _emp = {  
+                    Name: $scope.EmpModel.Name,
+                   
+                };  
+                $scope.EmpList.push(_emp);  
+                ClearModel();  
+            }  
+  
+            $scope.delete = function (emp) {  
+                var _index = $scope.EmpList.indexOf(emp);  
+                $scope.EmpList.splice(_index, 1);  
+            }  
+  
+            $scope.edit = function (emp) {  
+                
+                $scope.EmpModel.Name = emp.Name;  
+                  
+            }  
+  
+            $scope.UpdateData = function () {  
+                
+                $.grep($scope.EmpList, function (e) {  
+                    if (e.Name = $scope.EmpModel.Name) {  
+                        e.Name = $scope.EmpModel.Name;  
+                         
+                    }  
+                });  
+                ClearModel();  
+            }   
+  
+            function ClearModel() {  
+                 
+                $scope.EmpModel.Name = '';  
+                
+            }  
+        });  
+    </script>  
+</body>
+</html>
